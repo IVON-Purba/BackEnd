@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
 
     // 회원가입
     @Override
-    public Boolean signUp(User user) {
+    public Boolean signUp(SignUpRequest request) {
+        User user = createUser(request);
         validateDuplicationUser(user);
         userRepository.save(user);
 
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @NotNull
-    public User createUser(SignUpRequest request) {
+    private User createUser(SignUpRequest request) {
         User user = new User();
         user.setName(request.getName());
         user.setPhoneNumber(request.getPhoneNumber());

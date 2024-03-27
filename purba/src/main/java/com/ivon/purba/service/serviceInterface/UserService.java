@@ -1,9 +1,12 @@
 package com.ivon.purba.service.serviceInterface;
 
 import com.ivon.purba.domain.User;
+import com.ivon.purba.dto.userController.SignUpRequest;
 
 public interface UserService {
-    Boolean signUp(User user);
+    // 회원가입
+    Boolean signUp(SignUpRequest request);
+
     Long signIn(String phoneNumber);
 
     User getUserByPhoneNumber(String phoneNumber);

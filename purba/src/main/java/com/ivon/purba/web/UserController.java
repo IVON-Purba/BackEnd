@@ -33,7 +33,7 @@ public class UserController {
     //회원가입
     @PostMapping(value = "/user/signUp")
     public ResponseEntity<?> userSignUp(@RequestBody SignUpRequest request) {
-        userService.signUp(userService.createUser(request));
+        userService.signUp(request);
 
         SingUpResponse singUpResponse = new SingUpResponse();
         return ResponseEntity.status(HttpStatus.CREATED).body(singUpResponse);
