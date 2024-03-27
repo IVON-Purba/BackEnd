@@ -2,11 +2,13 @@ package com.ivon.purba.service;
 
 import com.ivon.purba.domain.User;
 import com.ivon.purba.dto.userController.SignUpRequest;
+import com.ivon.purba.exception.InvalidPhoneNumberPatternException;
 import com.ivon.purba.exception.ResourceNotFoundException;
 import com.ivon.purba.exception.UserAlreadyExistException;
 import com.ivon.purba.exception.UserNotFoundException;
 import com.ivon.purba.repository.UserRepository;
 import com.ivon.purba.service.serviceInterface.UserService;
+import jakarta.validation.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -65,14 +67,25 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("해당 ID로 회원를 조회할 수 없습니다."));
     }
 
-    @NotNull
     private User createUser(SignUpRequest request) {
         User user = new User();
+
         user.setName(request.getName());
-        user.setPhoneNumber(request.getPhoneNumber());
+
+        String phoneNumber = request.getPhoneNumber();
+        checkPhoneNumberPattern(phoneNumber);
+        user.setPhoneNumber(phoneNumber);
 
         user.setVerificationCode(setNewVerificationCode(user));
         return user;
+    }
+
+    private static void checkPhoneNumberPattern(String phoneNumber) {
+        String phoneNumberPattern = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+
+        if (!phoneNumber.matches(phoneNumberPattern)) {
+            throw new InvalidPhoneNumberPatternException("폰 번호 형식이 올바르지 않습니다.");
+        }
     }
 
     private void validateDuplicationUser(User user) {

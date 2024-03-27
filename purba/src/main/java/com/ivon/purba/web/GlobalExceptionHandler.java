@@ -38,6 +38,9 @@ public class GlobalExceptionHandler {
         } else if (e instanceof InvalidFileNameException) {
             status = HttpStatus.BAD_REQUEST;
             errorMessage = e.getMessage() != null ? e.getMessage() : "유효하지 않은 파일 이름입니다.";
+        } else if(e instanceof InvalidPhoneNumberPatternException) {
+            status = HttpStatus.BAD_REQUEST;
+            errorMessage = e.getMessage() != null ? e.getMessage() : "폰 번호 형식이 올바르지 않습니다.";
         }
 
         return ResponseEntity.status(status).body(errorMessage);
