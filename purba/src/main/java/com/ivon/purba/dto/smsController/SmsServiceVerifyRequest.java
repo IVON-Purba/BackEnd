@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SmsServiceVerifyRequest {
-    private String to;
-    private String code;
+    private String phoneNumber;
+    private String validateCode;
 }
+
