@@ -5,7 +5,7 @@ import com.ivon.purba.dto.userController.SignUpRequest;
 
 public interface UserService {
     // 회원가입
-    Boolean signUp(SignUpRequest request);
+    void signUp(SignUpRequest request);
 
     Long signIn(String phoneNumber);
 
