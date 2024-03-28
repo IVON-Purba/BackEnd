@@ -1,15 +1,13 @@
 package com.ivon.purba.service;
 
 import com.ivon.purba.dto.userController.SignUpRequest;
-import com.ivon.purba.exception.InvalidPhoneNumberPatternException;
-import com.ivon.purba.exception.UserAlreadyExistException;
-import com.ivon.purba.repository.UserRepository;
+import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
+import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.concurrent.ThreadLocalRandom;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

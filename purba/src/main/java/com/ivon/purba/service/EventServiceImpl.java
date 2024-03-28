@@ -1,11 +1,10 @@
 package com.ivon.purba.service;
 
 import com.ivon.purba.domain.*;
-import com.ivon.purba.dto.aiService.EventAnalysisResponse;
 import com.ivon.purba.dto.eventController.EventPostRequest;
 import com.ivon.purba.dto.eventController.EventUpdateRequest;
-import com.ivon.purba.exception.AIAnalysisException;
-import com.ivon.purba.exception.ResourceNotFoundException;
+import com.ivon.purba.exception.exceptions.AIAnalysisException;
+import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.repository.EventRepository;
 import com.ivon.purba.service.serviceInterface.EventService;
 import jakarta.transaction.Transactional;

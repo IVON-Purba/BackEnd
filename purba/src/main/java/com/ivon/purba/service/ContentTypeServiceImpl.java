@@ -1,7 +1,7 @@
 package com.ivon.purba.service;
 
 import com.ivon.purba.domain.ContentType;
-import com.ivon.purba.exception.ResourceNotFoundException;
+import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.repository.ContentTypeRepository;
 import com.ivon.purba.service.serviceInterface.ContentTypeService;
 import jakarta.transaction.Transactional;

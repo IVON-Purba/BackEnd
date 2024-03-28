@@ -3,9 +3,9 @@ package com.ivon.purba.service.serviceInterface;
 import com.ivon.purba.domain.ContentType;
 import com.ivon.purba.domain.Photo;
 import com.ivon.purba.domain.User;
-import com.ivon.purba.exception.AIAnalysisException;
-import com.ivon.purba.exception.PhotoSaveException;
-import com.ivon.purba.exception.ResourceNotFoundException;
+import com.ivon.purba.exception.exceptions.AIAnalysisException;
+import com.ivon.purba.exception.exceptions.PhotoSaveException;
+import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 
 public interface PhotoService {
     Photo save(Photo photo) throws PhotoSaveException;

@@ -1,7 +1,7 @@
 package com.ivon.purba.service;
 
 import com.ivon.purba.domain.EventType;
-import com.ivon.purba.exception.ResourceNotFoundException;
+import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.repository.EventTypeRepository;
 import com.ivon.purba.service.serviceInterface.EventTypeService;
 import jakarta.transaction.Transactional;

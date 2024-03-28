@@ -3,7 +3,7 @@ package com.ivon.purba.service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivon.purba.dto.aiService.PhotoAnalysisResponse;
-import com.ivon.purba.exception.AIAnalysisException;
+import com.ivon.purba.exception.exceptions.AIAnalysisException;
 import com.ivon.purba.service.serviceInterface.AiService;
 import org.springframework.stereotype.Service;
 

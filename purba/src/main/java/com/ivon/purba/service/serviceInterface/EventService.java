@@ -7,9 +7,8 @@ import com.ivon.purba.domain.EventType;
 import com.ivon.purba.domain.User;
 import com.ivon.purba.dto.eventController.EventPostRequest;
 import com.ivon.purba.dto.eventController.EventUpdateRequest;
-import com.ivon.purba.exception.AIAnalysisException;
+import com.ivon.purba.exception.exceptions.AIAnalysisException;
 
-import java.util.Date;
 import java.util.List;
 
 public interface EventService {

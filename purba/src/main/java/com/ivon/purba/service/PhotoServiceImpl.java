@@ -1,13 +1,12 @@
 package com.ivon.purba.service;
 
-import com.ivon.purba.domain.Content;
 import com.ivon.purba.domain.ContentType;
 import com.ivon.purba.domain.Photo;
 import com.ivon.purba.domain.User;
 import com.ivon.purba.dto.aiService.PhotoAnalysisResponse;
-import com.ivon.purba.exception.AIAnalysisException;
-import com.ivon.purba.exception.PhotoSaveException;
-import com.ivon.purba.exception.ResourceNotFoundException;
+import com.ivon.purba.exception.exceptions.AIAnalysisException;
+import com.ivon.purba.exception.exceptions.PhotoSaveException;
+import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.repository.PhotoRepository;
 import com.ivon.purba.service.serviceInterface.AiService;
 import com.ivon.purba.service.serviceInterface.FileService;
