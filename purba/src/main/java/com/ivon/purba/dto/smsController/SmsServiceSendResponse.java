@@ -1,6 +1,5 @@
 package com.ivon.purba.dto.smsController;
 
-import com.ivon.purba.security.hash.HashUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
