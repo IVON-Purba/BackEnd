@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.ResponseEntity;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,11 +21,12 @@ public class GlobalExceptionHandler {
             FileStorageException.class,
             InvalidFileNameException.class,
             InvalidPhoneNumberPatternException.class,
-            DataAccessException.class
+            DataAccessException.class,
+            RuntimeException.class
     })
     public ResponseEntity<String> handleCustomException(RuntimeException e) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        String errorMessage = "오류가 발생했습니다.";
+        String errorMessage = "오류가 발생했습니다." + e.getMessage();
 
         // 예외 유형에 따른 상태 및 메시지 설정
         if (e instanceof UserNotFoundException) {
@@ -50,6 +52,8 @@ public class GlobalExceptionHandler {
             errorMessage = e.getMessage() != null ? e.getMessage() : "폰 번호 형식이 올바르지 않습니다.";
         } else if (e instanceof DataAccessException) {
             errorMessage = e.getMessage() != null ? e.getMessage() : "데이터 저장에 문제가 생겼습니다.";
+        } else if (e instanceof RuntimeException) {
+            errorMessage = e.getMessage() != null ? e.getMessage() : "실행 중 오류 발생";
         }
 
         return ResponseEntity.status(status).body(errorMessage);
@@ -60,10 +64,16 @@ public class GlobalExceptionHandler {
         String errorMessage = "입출력 오류가 발생했습니다.";
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
+//
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+//        String errorMessage = "잘못된 매개변수입니다.";
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+//    }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        String errorMessage = "잘못된 매개변수입니다.";
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    @ExceptionHandler(NoSuchAlgorithmException.class)
+    public ResponseEntity<String> handleNoSuchAlgorithmException(NoSuchAlgorithmException e){
+        String errorMessage = e.getMessage();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
 }

@@ -1,11 +1,8 @@
 package com.ivon.purba.web;
 
-import com.ivon.purba.domain.User;
 import com.ivon.purba.dto.userController.*;
-import com.ivon.purba.security.JwtTokenUtil;
-import com.ivon.purba.service.UserServiceImpl;
+import com.ivon.purba.service.user.UserServiceImpl;
 import lombok.*;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
@@ -13,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,8 +21,7 @@ public class UserController {
     public ResponseEntity<Object> userSignIn(@RequestBody SignInRequest request) {
         Long userId = userService.signIn(request.getPhoneNumber());
 
-        SignInResponse response = new SignInResponse(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(new SignInResponse(userId));
     }
 
     //회원가입
@@ -35,8 +29,7 @@ public class UserController {
     public ResponseEntity<?> userSignUp(@RequestBody SignUpRequest request) {
         userService.signUp(request);
 
-        SingUpResponse response = new SingUpResponse();
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new SingUpResponse());
     }
 
     //로그아웃
@@ -44,7 +37,6 @@ public class UserController {
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
         userService.signOut(token);
 
-        SignOutResponse response = new SignOutResponse();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(new SignOutResponse());
     }
 }

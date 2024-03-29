@@ -1,8 +1,6 @@
 package com.ivon.purba.dto.eventController;
 
 import com.ivon.purba.domain.Event;
-import com.ivon.purba.service.EventServiceImpl;
-import com.ivon.purba.service.serviceInterface.EventService;
 import lombok.Getter;
 import lombok.Setter;
 
