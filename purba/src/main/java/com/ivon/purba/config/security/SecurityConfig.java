@@ -1,6 +1,7 @@
 package com.ivon.purba.config.security;
 
 import com.ivon.purba.service.security.JwtTokenService;
+import com.ivon.purba.service.security.RedisService;
 import com.ivon.purba.service.serviceInterface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,7 @@ import static java.lang.System.getenv;
 public class SecurityConfig{
     private final UserService userService;
     private final JwtTokenService jwtTokenService;
-    private static final String secretKey = getenv().get("SECRET_KEY");
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisService redisService;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -33,7 +33,7 @@ public class SecurityConfig{
                         .requestMatchers("/sms/verify").permitAll()
                         .requestMatchers("/**").authenticated()
                 )
-                .addFilterBefore(new JwtTokenFilter(userService, jwtTokenService, redisTemplate), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenFilter(userService, jwtTokenService, redisService), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

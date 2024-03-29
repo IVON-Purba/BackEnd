@@ -7,7 +7,9 @@ import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
 import com.ivon.purba.exception.exceptions.UserNotFoundException;
 import com.ivon.purba.repository.UserRepository;
+import com.ivon.purba.service.security.RedisService;
 import com.ivon.purba.service.serviceInterface.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,18 +23,12 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository  userRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
-
-    @Value("${app.validVerificationCodeHours}")
-    private static int validVerificationCodeHours;
-
-    public UserServiceImpl(UserRepository userRepository, RedisTemplate<String, Object> redisTemplate) {
-        this.userRepository = userRepository;
-        this.redisTemplate = redisTemplate;
-    }
+    private final RedisService redisService;
+    private static final long SIGN_OUT_TOKEN_VALIDITY = 24 * 60 * 60;
 
     // 회원가입
     @Override
@@ -52,8 +48,7 @@ public class UserServiceImpl implements UserService {
     //로그아웃
     public void signOut(String token) {
         String cleanedToken = token.substring(7);
-
-        redisTemplate.opsForValue().set(cleanedToken, "logout", 24 * 60 * 60, TimeUnit.SECONDS);
+        redisService.setData(cleanedToken, "logout", SIGN_OUT_TOKEN_VALIDITY);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.ivon.purba.dto.smsController.SmsServiceSendRequest;
 import com.ivon.purba.dto.smsController.SmsServiceVerifyRequest;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.service.security.JwtTokenService;
+import com.ivon.purba.service.security.RedisService;
 import com.ivon.purba.service.serviceInterface.SmsService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class SmsServiceImpl implements SmsService {
 
     private final JwtTokenService jwtTokenService;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisService redisService;
 
 
     @Value("${coolsms.api.key}")
@@ -40,9 +41,8 @@ public class SmsServiceImpl implements SmsService {
 
     @Value("${phoneNumber}")
     private String fromPhoneNumber;
-
-    private static final long VERIFICATION_CODE_VALIDITY = 330;
-    private static final long REFRESH_TOKEN_VALIDITY = 30 * 60 * 1000;
+    private static final long VERIFICATION_CODE_VALIDITY = 5 * 60;
+    private static final long REFRESH_TOKEN_VALIDITY = 30 * 60;
     private DefaultMessageService messageService;
 
     @PostConstruct
@@ -66,14 +66,12 @@ public class SmsServiceImpl implements SmsService {
         String phoneNumber = request.getPhoneNumber();
         String inputCodeHash = toSHA256(request.getValidateCode());
         String storedCodeHash = findVerificationCode(phoneNumber);
-        System.out.println(inputCodeHash);
-        System.out.println(storedCodeHash);
 
         //provide JwtToken
         if (storedCodeHash.equals(inputCodeHash)) {
             JwtToken token = jwtTokenService.generateToken(phoneNumber);
             String refreshToken = token.getRefreshToken();
-            redisTemplate.opsForValue().set("refreshToken:" + phoneNumber, refreshToken, REFRESH_TOKEN_VALIDITY);
+            redisService.setData("refreshToken:" + phoneNumber, refreshToken, REFRESH_TOKEN_VALIDITY);
             return token;
         }
 
@@ -83,16 +81,14 @@ public class SmsServiceImpl implements SmsService {
     private void saveVerificationCode(String phoneNumber, String code) {
         try {
             String hashCode = toSHA256(code);
-            ValueOperations<String, Object> valueOps = redisTemplate.opsForValue();
-            valueOps.set("인증코드:" + phoneNumber, hashCode, VERIFICATION_CODE_VALIDITY, TimeUnit.SECONDS);
+            redisService.setData("인증코드:" + phoneNumber, hashCode, VERIFICATION_CODE_VALIDITY);
         } catch (Exception e) {
             throw new RuntimeException("Redis 작업 중 오류 발생:" + e.getMessage());
         }
     }
 
     private String findVerificationCode(String phoneNumber) {
-        ValueOperations<String, Object> valueOps = redisTemplate.opsForValue();
-        String code = (String) valueOps.get("인증코드:" + phoneNumber);
+        String code =  redisService.getData("인증코드:" + phoneNumber);
 
         if (code == null) {
             throw new ResourceNotFoundException("인증 코드가 유효하지 않거나 만료되었습니다.");

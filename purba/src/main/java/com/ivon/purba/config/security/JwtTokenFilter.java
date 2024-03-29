@@ -2,6 +2,7 @@ package com.ivon.purba.config.security;
 
 import com.ivon.purba.domain.User;
 import com.ivon.purba.service.security.JwtTokenService;
+import com.ivon.purba.service.security.RedisService;
 import com.ivon.purba.service.serviceInterface.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,7 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final UserService userService;
     private final JwtTokenService jwtTokenService;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -46,7 +47,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String token = authorizationHeader.substring(7);
         Date tokenExpiration = jwtTokenService.getExpiration(token);
-        String isLogout = (String) redisTemplate.opsForValue().get(token);
+        String isLogout = redisService.getData(token);
 
         if (tokenExpiration.before(new Date()) || !ObjectUtils.isEmpty(isLogout)) {
             unauthorizedResponse(response, "토큰 유효기간이 만료되었습니다. 전화번호 인증이 필요합니다.");

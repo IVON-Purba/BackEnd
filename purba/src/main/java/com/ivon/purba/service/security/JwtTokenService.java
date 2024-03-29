@@ -14,18 +14,20 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Service
 public class JwtTokenService {
 
     private final UserService userService;
+    private final RedisService redisService;
     private final RedisTemplate<String, Object> redisTemplate;
 
     //5min
-    private static final long ACCESS_TOKEN_VALIDITY = 5 * 60 * 1000;
+    private static final long ACCESS_TOKEN_VALIDITY = 60 * 5;
     //30min
-    private static final long REFRESH_TOKEN_VALIDITY = 30 * 60 * 1000;
+    private static final long REFRESH_TOKEN_VALIDITY = 60 * 30;
 
     @Value("${SECRET_KEY}")
     private String SIGNING_KEY;
@@ -74,8 +76,7 @@ public class JwtTokenService {
     }
 
     private boolean validateRefreshToken(String phoneNumber, String refreshToken) {
-        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        String storedToken = (String) valueOperations.get("refreshToken:" + phoneNumber);
+        String storedToken = redisService.getData("refreshToken:" + phoneNumber);
         return refreshToken.equals(storedToken);
     }
 
