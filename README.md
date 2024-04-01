@@ -1,9 +1,9 @@
 # Purba BackEnd
-이 프로젝트는 Spring Boot를 기반으로 하며, RestFul API를 통해 데이터를 처리합니다. 데이터 저장소로는 MySQL과 Redis를 사용하며, AWS를 통한 클라우드 기반 인프라 설계로, 안정적인 서비스 운영을 목표로 합니다.
+Purba BackEnd is a back-end solution based on Spring Boot, which processes data through RestFul API. It utilizes MySQL and Redis for data storage, and security is enhanced by using JWT. The project is deployed on the cloud via AWS.
 
 
 
-## 기술 스택
+## Skills
 
 - **Spring Boot**
 - **RestFul API**
@@ -14,23 +14,23 @@
 
 
   
-## 데이터베이스 설계 (ERD)
+## ERD
 
 <img width="1002" alt="image" src="https://github.com/IVON-Purba/BackEnd/assets/52391641/8d636e3a-ff7b-472b-915e-566bba089c60">
 
 
 
-## 아키텍처
+## Architecture
 
 <img width="931" alt="image" src="https://github.com/IVON-Purba/BackEnd/assets/52391641/188b8a49-0c8e-434e-bb91-8b5582377397">
 
 
 
-### 필요한 조건
+### Version
 
-프로젝트를 시작하기 전에 설치해야 할 소프트웨어 목록입니다.
-
-- Java 17 이상
-- Gradle
-- MySQL
-- Redis
+- Java 17
+- Gradle 8.7
+- MySQL 8.0
+- Redis 7.2.4
+- nginx 3.17
+  
