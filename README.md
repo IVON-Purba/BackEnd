@@ -22,7 +22,7 @@
 
 ## 아키텍처
 
-<img width="802" alt="image" src="https://github.com/IVON-Purba/BackEnd/assets/52391641/c477bd14-5eec-4308-9bfa-94dd08c5d1c1">
+<img width="931" alt="image" src="https://github.com/IVON-Purba/BackEnd/assets/52391641/188b8a49-0c8e-434e-bb91-8b5582377397">
 
 
 
