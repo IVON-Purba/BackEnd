@@ -105,13 +105,12 @@ class UserServiceImplTest {
         userService.signUp(signUpRequest);
 
         //when
-        Long userId = null;
-        try {
-            userId = userService.signIn(phoneNumber);
-        } catch (UserNotFoundException e) {
-            //then
-            assertThat(e.getMessage()).isEqualTo("해당 회원이 존재하지 않습니다.");
-        }
+        UserNotFoundException e = assertThrows(UserNotFoundException.class, () -> {
+            userService.signIn(generateRandomPhoneNumber());
+        });
+
+        //then
+        assertThat(e.getMessage()).isEqualTo("해당 회원이 존재하지 않습니다.");
     }
 
     private String generateRandomPhoneNumber() {
