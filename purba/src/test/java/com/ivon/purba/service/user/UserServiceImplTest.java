@@ -29,6 +29,22 @@ class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Test
+    @DisplayName("성공적인 회원가입")
+    void userSignUpSuccess() {
+        //given
+        String phoneNumber = generateRandomPhoneNumber();
+        SignUpRequest signUpRequest = new SignUpRequest();
+        signUpRequest.setPhoneNumber(phoneNumber);
+
+        //when
+        userService.signUp(signUpRequest);
+
+        //then
+        User user = userService.getUserByPhoneNumber(phoneNumber);
+        assertThat(user).isNotNull();
+    }
+
+    @Test
     @DisplayName("동일한 사용자 정보로 회원가입")
     void signUpWithDuplicatePhoneNumber() {
         //given
