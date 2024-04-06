@@ -29,7 +29,7 @@ class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Test
-    @DisplayName("성공적인 회원가입")
+    @DisplayName("회원가입")
     void userSignUpSuccess() {
         //given
         String phoneNumber = generateRandomPhoneNumber();
@@ -42,6 +42,8 @@ class UserServiceImplTest {
         //then
         User user = userService.getUserByPhoneNumber(phoneNumber);
         assertThat(user).isNotNull();
+        assertThat(user.getPhoneNumber()).isEqualTo(phoneNumber);
+        assertThat(user.getId()).isNotNull();
     }
 
     @Test
@@ -78,7 +80,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("성공적인 로그인")
+    @DisplayName("로그인")
     void userSignInSuccess() {
         //given
         String phoneNumber = generateRandomPhoneNumber();
