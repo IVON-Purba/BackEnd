@@ -1,9 +1,11 @@
 package com.ivon.purba.service.user;
 
+import com.ivon.purba.domain.User;
+import com.ivon.purba.dto.userController.SignInRequest;
 import com.ivon.purba.dto.userController.SignUpRequest;
 import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
 import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
-import com.ivon.purba.service.user.UserServiceImpl;
+import com.ivon.purba.exception.exceptions.UserNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional
@@ -22,6 +27,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
+
+    @Test
+    @DisplayName("회원가입")
+    void userSignUpSuccess() {
+        //given
+        String phoneNumber = generateRandomPhoneNumber();
+        SignUpRequest signUpRequest = new SignUpRequest();
+        signUpRequest.setPhoneNumber(phoneNumber);
+
+        //when
+        userService.signUp(signUpRequest);
+
+        //then
+        User user = userService.getUserByPhoneNumber(phoneNumber);
+        assertThat(user).isNotNull();
+        assertThat(user.getPhoneNumber()).isEqualTo(phoneNumber);
+        assertThat(user.getId()).isNotNull();
+    }
 
     @Test
     @DisplayName("동일한 사용자 정보로 회원가입")
@@ -56,6 +79,41 @@ class UserServiceImplTest {
         assertThat(e.getMessage()).isEqualTo("폰 번호 형식이 올바르지 않습니다.");
     }
 
+    @Test
+    @DisplayName("로그인")
+    void userSignInSuccess() {
+        //given
+        String phoneNumber = generateRandomPhoneNumber();
+        SignUpRequest signUpRequest = new SignUpRequest();
+        signUpRequest.setPhoneNumber(phoneNumber);
+        userService.signUp(signUpRequest);
+
+        //when
+        Long userId = userService.signIn(phoneNumber);
+        User user = userService.getUserById(userId);
+
+        //then
+        assertThat(user.getPhoneNumber()).isEqualTo(phoneNumber);
+        assertThat(user.getId()).isEqualTo(userId);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 사용자로 로그인 시도")
+    void userSignInWithNonExistingUser() {
+        //given
+        String phoneNumber = generateRandomPhoneNumber();
+        SignUpRequest signUpRequest = new SignUpRequest();
+        signUpRequest.setPhoneNumber(phoneNumber);
+        userService.signUp(signUpRequest);
+
+        //when
+        UserNotFoundException e = assertThrows(UserNotFoundException.class, () -> {
+            userService.signIn(generateRandomPhoneNumber());
+        });
+
+        //then
+        assertThat(e.getMessage()).isEqualTo("해당 회원이 존재하지 않습니다.");
+    }
 
     private String generateRandomPhoneNumber() {
         int middle = ThreadLocalRandom.current().nextInt(1000, 10000);
