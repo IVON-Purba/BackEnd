@@ -4,9 +4,11 @@ import com.ivon.purba.domain.user.service.interfaces.SessionService;
 import com.ivon.purba.redis.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SessionServiceImpl implements SessionService {
     private final RedisUtil redisUtil;
     private static final long SIGN_OUT_TOKEN_VALIDITY = 24 * 60 * 60;

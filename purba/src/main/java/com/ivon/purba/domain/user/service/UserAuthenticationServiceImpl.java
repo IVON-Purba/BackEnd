@@ -8,9 +8,11 @@ import com.ivon.purba.domain.user.service.interfaces.UserAuthenticationService;
 import com.ivon.purba.exception.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
     private final UserRepository userRepository;
     private final SessionService sessionService;
