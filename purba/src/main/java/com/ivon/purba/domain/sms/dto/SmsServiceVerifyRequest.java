@@ -1,12 +1,14 @@
 package com.ivon.purba.domain.sms.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class SmsServiceVerifyRequest {
-    private String phoneNumber;
+    @NotEmpty(message = "Phone number cannot be empty.")
+    private String toPhoneNumber;
+    @NotEmpty(message = "Validation code cannot be empty.")
     private String validateCode;
 }
 

@@ -1,10 +1,11 @@
 package com.ivon.purba.domain.sms.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class SmsServiceSendRequest {
-    private String to;
+    @NotEmpty(message = "Phone number cannot be empty.")
+    private String toPhoneNumber;
 }

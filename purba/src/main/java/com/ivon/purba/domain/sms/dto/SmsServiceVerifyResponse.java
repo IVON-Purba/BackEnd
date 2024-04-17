@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class SmsServiceVerifyResponse {
     JwtToken token;
     private String message;

@@ -5,7 +5,6 @@ import lombok.Setter;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 
 @Getter
-@Setter
 public class SmsServiceSendResponse {
     private String message;
 
