@@ -1,9 +1,9 @@
 package com.ivon.purba.service.user;
 
-import com.ivon.purba.dto.userController.SignUpRequest;
+import com.ivon.purba.domain.user.dto.SignUpRequest;
 import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
 import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
-import com.ivon.purba.service.user.UserServiceImpl;
+import com.ivon.purba.domain.user.service.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

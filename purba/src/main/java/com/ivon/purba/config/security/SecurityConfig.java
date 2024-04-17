@@ -1,12 +1,11 @@
 package com.ivon.purba.config.security;
 
-import com.ivon.purba.service.security.JwtTokenService;
-import com.ivon.purba.service.security.RedisService;
-import com.ivon.purba.service.serviceInterface.UserService;
+import com.ivon.purba.domain.security.service.JwtTokenService;
+import com.ivon.purba.domain.security.service.RedisService;
+import com.ivon.purba.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;

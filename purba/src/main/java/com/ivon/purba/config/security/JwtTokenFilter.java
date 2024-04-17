@@ -1,16 +1,15 @@
 package com.ivon.purba.config.security;
 
-import com.ivon.purba.domain.User;
-import com.ivon.purba.service.security.JwtTokenService;
-import com.ivon.purba.service.security.RedisService;
-import com.ivon.purba.service.serviceInterface.UserService;
+import com.ivon.purba.domain.user.entity.User;
+import com.ivon.purba.domain.security.service.JwtTokenService;
+import com.ivon.purba.domain.security.service.RedisService;
+import com.ivon.purba.domain.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
