@@ -1,10 +1,8 @@
 package com.ivon.purba.domain.user.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class SignInResponse {
     private String message;
     Long userId;
