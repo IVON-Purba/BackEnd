@@ -1,6 +1,7 @@
 package com.ivon.purba.domain.sms.service;
 
 import com.ivon.purba.domain.security.dto.JwtToken;
+import com.ivon.purba.domain.sms.service.interfaces.SmsService;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import com.ivon.purba.domain.security.service.JwtTokenService;
 import com.ivon.purba.domain.security.service.RedisService;
@@ -15,12 +16,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
@@ -47,7 +49,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public SingleMessageSentResponse sendVerificationCode(SmsServiceSendRequest request) {
-        String phoneNumber = request.getTo();
+        String phoneNumber = request.getToPhoneNumber();
         String verificationCode = makeVerificationCode();
 
         saveVerificationCode(phoneNumber, verificationCode);
@@ -58,7 +60,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public JwtToken verifyCode(SmsServiceVerifyRequest request) {
-        String phoneNumber = request.getPhoneNumber();
+        String phoneNumber = request.getToPhoneNumber();
         String inputCodeHash = toSHA256(request.getValidateCode());
         String storedCodeHash = findVerificationCode(phoneNumber);
 

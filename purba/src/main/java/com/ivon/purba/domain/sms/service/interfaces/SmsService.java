@@ -1,4 +1,4 @@
-package com.ivon.purba.domain.sms.service;
+package com.ivon.purba.domain.sms.service.interfaces;
 
 import com.ivon.purba.domain.sms.dto.SmsServiceSendRequest;
 import com.ivon.purba.domain.sms.dto.SmsServiceVerifyRequest;
