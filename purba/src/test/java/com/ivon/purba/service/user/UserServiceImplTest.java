@@ -1,18 +1,13 @@
 package com.ivon.purba.service.user;
 
-<<<<<<< HEAD
+
 import com.ivon.purba.domain.user.dto.SignUpRequest;
+import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
 import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
 import com.ivon.purba.domain.user.service.UserServiceImpl;
-=======
-import com.ivon.purba.domain.User;
-import com.ivon.purba.dto.userController.SignInRequest;
-import com.ivon.purba.dto.userController.SignUpRequest;
-import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
-import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
 import com.ivon.purba.exception.exceptions.UserNotFoundException;
->>>>>>> 15cc9df3fa0f72b9367371986a63d883ecb66299
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Transactional

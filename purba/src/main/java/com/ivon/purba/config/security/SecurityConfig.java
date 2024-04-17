@@ -2,7 +2,7 @@ package com.ivon.purba.config.security;
 
 import com.ivon.purba.domain.security.service.JwtTokenService;
 import com.ivon.purba.domain.security.service.RedisService;
-import com.ivon.purba.domain.user.service.UserService;
+import com.ivon.purba.domain.user.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

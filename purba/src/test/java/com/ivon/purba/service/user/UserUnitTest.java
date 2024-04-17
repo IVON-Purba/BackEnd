@@ -1,7 +1,7 @@
 package com.ivon.purba.service.user;
 
-import com.ivon.purba.domain.User;
-import com.ivon.purba.repository.UserRepository;
+import com.ivon.purba.domain.user.entity.User;
+import com.ivon.purba.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

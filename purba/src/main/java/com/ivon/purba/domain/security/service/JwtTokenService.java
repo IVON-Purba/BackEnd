@@ -3,7 +3,7 @@ package com.ivon.purba.domain.security.service;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.security.dto.JwtToken;
 import com.ivon.purba.domain.security.dto.RefreshTokenRequest;
-import com.ivon.purba.domain.user.service.UserService;
+import com.ivon.purba.domain.user.service.interfaces.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,7 +1,7 @@
 package com.ivon.purba.domain.content.entity;
 
-import com.ivon.purba.domain.content.event.entity.Event;
-import com.ivon.purba.domain.content.event.entity.EventType;
+import com.ivon.purba.domain.event.entity.Event;
+import com.ivon.purba.domain.event.entity.EventType;
 import com.ivon.purba.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;

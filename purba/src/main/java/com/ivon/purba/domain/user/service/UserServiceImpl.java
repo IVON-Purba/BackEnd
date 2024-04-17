@@ -3,10 +3,11 @@ package com.ivon.purba.domain.user.service;
 import com.ivon.purba.domain.user.dto.SignUpRequest;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.user.repository.UserRepository;
+import com.ivon.purba.domain.user.service.interfaces.SessionService;
+import com.ivon.purba.domain.user.service.interfaces.UserService;
 import com.ivon.purba.exception.exceptions.InvalidPhoneNumberPatternException;
 import com.ivon.purba.exception.exceptions.UserAlreadyExistException;
 import com.ivon.purba.exception.exceptions.UserNotFoundException;
-import com.ivon.purba.domain.security.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +19,7 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RedisService redisService;
-    private static final long SIGN_OUT_TOKEN_VALIDITY = 24 * 60 * 60;
+    private final SessionService sessionService;
 
     // 회원가입
     @Override
@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
     }
 
     //로그아웃
+    @Override
     public void signOut(String token) {
-        String cleanedToken = token.substring(7);
-        redisService.setData(cleanedToken, "logout", SIGN_OUT_TOKEN_VALIDITY);
+        sessionService.terminateSession(token);
     }
 
     @Override
