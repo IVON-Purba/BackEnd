@@ -1,4 +1,4 @@
-package com.ivon.purba.config.redis;
+package com.ivon.purba.redis.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;

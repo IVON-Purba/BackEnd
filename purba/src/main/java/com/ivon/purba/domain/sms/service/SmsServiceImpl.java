@@ -1,19 +1,18 @@
 package com.ivon.purba.domain.sms.service;
 
-import com.ivon.purba.domain.security.dto.JwtToken;
+import com.ivon.purba.config.jwt.utils.JwtUtil;
+import com.ivon.purba.config.jwt.dto.JwtToken;
 import com.ivon.purba.domain.sms.service.interfaces.SmsService;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
-import com.ivon.purba.domain.security.service.JwtTokenService;
-import com.ivon.purba.domain.security.service.RedisService;
 import com.ivon.purba.domain.sms.dto.SmsServiceSendRequest;
 import com.ivon.purba.domain.sms.dto.SmsServiceVerifyRequest;
+import com.ivon.purba.redis.utils.RedisUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,8 @@ import java.security.NoSuchAlgorithmException;
 @RequiredArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
-    private final JwtTokenService jwtTokenService;
-    private final RedisService redisService;
+    private final JwtUtil jwtUtil;
+    private final RedisUtil redisUtil;
 
 
     @Value("${coolsms.api.key}")
@@ -66,9 +65,9 @@ public class SmsServiceImpl implements SmsService {
 
         //provide JwtToken
         if (storedCodeHash.equals(inputCodeHash)) {
-            JwtToken token = jwtTokenService.generateToken(phoneNumber);
+            JwtToken token = jwtUtil.generateToken(phoneNumber);
             String refreshToken = token.getRefreshToken();
-            redisService.setData("refreshToken:" + phoneNumber, refreshToken, REFRESH_TOKEN_VALIDITY);
+            redisUtil.setData("refreshToken:" + phoneNumber, refreshToken, REFRESH_TOKEN_VALIDITY);
             return token;
         }
 
@@ -78,14 +77,14 @@ public class SmsServiceImpl implements SmsService {
     private void saveVerificationCode(String phoneNumber, String code) {
         try {
             String hashCode = toSHA256(code);
-            redisService.setData("인증코드:" + phoneNumber, hashCode, VERIFICATION_CODE_VALIDITY);
+            redisUtil.setData("인증코드:" + phoneNumber, hashCode, VERIFICATION_CODE_VALIDITY);
         } catch (Exception e) {
             throw new RuntimeException("Redis 작업 중 오류 발생:" + e.getMessage());
         }
     }
 
     private String findVerificationCode(String phoneNumber) {
-        String code =  redisService.getData("인증코드:" + phoneNumber);
+        String code =  redisUtil.getData("인증코드:" + phoneNumber);
 
         if (code == null) {
             throw new ResourceNotFoundException("인증 코드가 유효하지 않거나 만료되었습니다.");

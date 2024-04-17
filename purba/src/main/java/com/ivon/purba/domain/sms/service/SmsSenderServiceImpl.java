@@ -1,7 +1,5 @@
 package com.ivon.purba.domain.sms.service;
 
-import com.ivon.purba.domain.security.service.JwtTokenService;
-import com.ivon.purba.domain.security.service.RedisService;
 import com.ivon.purba.domain.sms.dto.SmsServiceSendRequest;
 import com.ivon.purba.domain.sms.service.interfaces.SmsSenderService;
 import com.ivon.purba.domain.sms.service.interfaces.SmsStorageService;
@@ -14,10 +12,6 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Service
 @RequiredArgsConstructor

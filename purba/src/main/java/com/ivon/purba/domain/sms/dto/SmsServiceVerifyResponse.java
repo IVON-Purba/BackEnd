@@ -1,8 +1,7 @@
 package com.ivon.purba.domain.sms.dto;
 
-import com.ivon.purba.domain.security.dto.JwtToken;
+import com.ivon.purba.config.jwt.dto.JwtToken;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class SmsServiceVerifyResponse {

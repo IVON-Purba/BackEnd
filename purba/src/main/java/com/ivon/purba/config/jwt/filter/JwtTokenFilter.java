@@ -1,9 +1,9 @@
-package com.ivon.purba.config.security;
+package com.ivon.purba.config.jwt.filter;
 
+import com.ivon.purba.config.jwt.utils.JwtUtil;
 import com.ivon.purba.domain.user.entity.User;
-import com.ivon.purba.domain.security.service.JwtTokenService;
-import com.ivon.purba.domain.security.service.RedisService;
 import com.ivon.purba.domain.user.service.interfaces.UserService;
+import com.ivon.purba.redis.utils.RedisUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +26,8 @@ import java.util.List;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final UserService userService;
-    private final JwtTokenService jwtTokenService;
-    private final RedisService redisService;
+    private final JwtUtil jwtUtil;
+    private final RedisUtil redisUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -45,15 +45,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         String token = authorizationHeader.substring(7);
-        Date tokenExpiration = jwtTokenService.getExpiration(token);
-        String isLogout = redisService.getData(token);
+        Date tokenExpiration = jwtUtil.getExpiration(token);
+        String isLogout = redisUtil.getData(token);
 
         if (tokenExpiration.before(new Date()) || !ObjectUtils.isEmpty(isLogout)) {
             unauthorizedResponse(response, "토큰 유효기간이 만료되었습니다. 전화번호 인증이 필요합니다.");
             return;
         }
 
-        String phoneNumber = jwtTokenService.getLoginPhoneNumber(token);
+        String phoneNumber = jwtUtil.getLoginPhoneNumber(token);
         User loginUser = userService.getUserByPhoneNumber(phoneNumber);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 loginUser.getId(), null, List.of(new SimpleGrantedAuthority(loginUser.getPhoneNumber())));

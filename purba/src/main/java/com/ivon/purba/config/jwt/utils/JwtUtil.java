@@ -1,34 +1,21 @@
-package com.ivon.purba.domain.security.service;
+package com.ivon.purba.config.jwt.utils;
 
-import com.ivon.purba.domain.user.entity.User;
-import com.ivon.purba.domain.security.dto.JwtToken;
-import com.ivon.purba.domain.security.dto.RefreshTokenRequest;
-import com.ivon.purba.domain.user.service.interfaces.UserService;
+import com.ivon.purba.config.jwt.dto.JwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@RequiredArgsConstructor
 @Service
-public class JwtTokenService {
-
-    private final UserService userService;
-    private final RedisService redisService;
-    private final RedisTemplate<String, Object> redisTemplate;
-
-    //5min
-    private static final long ACCESS_TOKEN_VALIDITY = 60 * 5;
-    //30min
-    private static final long REFRESH_TOKEN_VALIDITY = 60 * 30;
-
+public class JwtUtil {
     @Value("${SECRET_KEY}")
-    private String SIGNING_KEY;
+    private static String SIGNING_KEY;
+
+    private static final long ACCESS_TOKEN_VALIDITY = 300000;  // 5 minutes
+    private static final long REFRESH_TOKEN_VALIDITY = 1800000; // 30 minutes
 
     public JwtToken generateToken(String phoneNumber) {
         String accessToken = generateAccessToken(phoneNumber);
@@ -52,30 +39,12 @@ public class JwtTokenService {
                 .compact();
     }
 
-    public String generateRefreshToken() {
+    private String generateRefreshToken() {
         return Jwts.builder()
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALIDITY * 3))
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .compact();
-    }
-
-    public String refreshToken(RefreshTokenRequest request) {
-        User user = userService.getUserById(request.getUserId());
-        String phoneNumber = user.getPhoneNumber();
-
-        boolean isValid = validateRefreshToken(phoneNumber, request.getRefreshToken());
-
-        if (!isValid) {
-            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
-        }
-
-        return generateAccessToken(phoneNumber);
-    }
-
-    private boolean validateRefreshToken(String phoneNumber, String refreshToken) {
-        String storedToken = redisService.getData("refreshToken:" + phoneNumber);
-        return refreshToken.equals(storedToken);
     }
 
     public String getLoginPhoneNumber(String token) {

@@ -1,9 +1,8 @@
 package com.ivon.purba.domain.sms.service;
 
-import com.ivon.purba.domain.security.dto.JwtToken;
-import com.ivon.purba.domain.security.service.JwtTokenService;
+import com.ivon.purba.config.jwt.utils.JwtUtil;
+import com.ivon.purba.config.jwt.dto.JwtToken;
 import com.ivon.purba.domain.sms.dto.SmsServiceVerifyRequest;
-import com.ivon.purba.domain.sms.service.interfaces.SmsSenderService;
 import com.ivon.purba.domain.sms.service.interfaces.SmsStorageService;
 import com.ivon.purba.domain.sms.service.interfaces.SmsVerificationService;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class SmsVerificationServiceImpl implements SmsVerificationService {
 
     private final SmsStorageService smsStorageService;
-    private final JwtTokenService jwtTokenService;
 
     @Override
     public JwtToken verifyCode(SmsServiceVerifyRequest request) {
@@ -25,7 +23,7 @@ public class SmsVerificationServiceImpl implements SmsVerificationService {
 
         //provide JwtToken
         if (storedCodeHash.equals(inputCodeHash)) {
-            JwtToken token = jwtTokenService.generateToken(phoneNumber);
+            JwtToken token = JwtUtil.generateToken(phoneNumber);
             String refreshToken = token.getRefreshToken();
             smsStorageService.saveRefreshToken(phoneNumber, refreshToken);
             return token;

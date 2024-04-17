@@ -1,4 +1,4 @@
-package com.ivon.purba.domain.security.dto;
+package com.ivon.purba.config.jwt.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

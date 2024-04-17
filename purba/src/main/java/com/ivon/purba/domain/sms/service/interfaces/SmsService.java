@@ -2,7 +2,7 @@ package com.ivon.purba.domain.sms.service.interfaces;
 
 import com.ivon.purba.domain.sms.dto.SmsServiceSendRequest;
 import com.ivon.purba.domain.sms.dto.SmsServiceVerifyRequest;
-import com.ivon.purba.domain.security.dto.JwtToken;
+import com.ivon.purba.config.jwt.dto.JwtToken;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 
 import java.security.NoSuchAlgorithmException;
