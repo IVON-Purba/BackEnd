@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PhotoAnalysisResponse {
+public class PhotoAnalysis {
     private String id;
     private List<Choices> choices;
     private List<String> tags;

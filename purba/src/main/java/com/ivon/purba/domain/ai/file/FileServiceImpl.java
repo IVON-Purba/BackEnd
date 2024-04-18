@@ -8,15 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-@Getter
-@Setter
 public class FileServiceImpl implements FileService {
 
     @Value("${file.upload-dir}")
@@ -35,7 +32,7 @@ public class FileServiceImpl implements FileService {
             file.transferTo(targetLocation.toFile());
 
             return targetLocation.toString();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new FileStorageException("파일을 저장하는 도중 오류가 발생했습니다." + e.getMessage());
         }
     }

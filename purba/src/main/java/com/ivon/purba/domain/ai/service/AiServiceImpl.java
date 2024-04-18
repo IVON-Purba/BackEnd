@@ -2,7 +2,7 @@ package com.ivon.purba.domain.ai.service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ivon.purba.domain.ai.dto.PhotoAnalysisResponse;
+import com.ivon.purba.domain.ai.dto.PhotoAnalysis;
 import com.ivon.purba.exception.exceptions.AIAnalysisException;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 public class AiServiceImpl implements AiService {
 
     @Override
-    public PhotoAnalysisResponse analyzePhoto(String photoPath) {
+    public PhotoAnalysis analyzePhoto(String photoPath) {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "python",
                 "C:\\Users\\dydal\\PycharmProjects\\pythonProject\\openai_test.py",
@@ -55,7 +55,7 @@ public class AiServiceImpl implements AiService {
 
             String jsonResult = jsonResultBuilder.toString();
             ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            return objectMapper.readValue(jsonResult, PhotoAnalysisResponse.class);
+            return objectMapper.readValue(jsonResult, PhotoAnalysis.class);
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new AIAnalysisException("AI 분석 실패:" + e.getMessage());
