@@ -1,4 +1,4 @@
-package com.ivon.purba.domain.event.comment.entity;
+package com.ivon.purba.domain.comment.entity;
 
 import com.ivon.purba.domain.user.entity.User;
 import jakarta.persistence.*;
