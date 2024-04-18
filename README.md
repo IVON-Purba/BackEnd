@@ -10,6 +10,7 @@ Purba BackEnd is a back-end solution based on Spring Boot, which processes data 
 - **MySQL**
 - **JWT (JSON Web Token)**
 - **Redis**: 키-값 저장소, 사용자의 Refresh Token 저장 용도
+- **Github Action**
 - **AWS**
 
 
