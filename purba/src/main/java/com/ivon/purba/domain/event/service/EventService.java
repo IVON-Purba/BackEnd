@@ -1,10 +1,10 @@
 package com.ivon.purba.domain.event.service;
 
 
+import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.event.dto.EventUpdateRequest;
 import com.ivon.purba.domain.event.entity.Event;
 import com.ivon.purba.domain.event.entity.EventType;
-import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.event.dto.EventPostRequest;
 import com.ivon.purba.exception.exceptions.AIAnalysisException;

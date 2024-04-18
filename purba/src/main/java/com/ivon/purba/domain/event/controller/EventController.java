@@ -1,14 +1,14 @@
 package com.ivon.purba.domain.event.controller;
 
 
+import com.ivon.purba.domain.content.entity.ContentType;
+import com.ivon.purba.domain.content.entity.ContentTypeEnum;
 import com.ivon.purba.domain.event.dto.*;
 import com.ivon.purba.domain.event.service.EventServiceImpl;
 import com.ivon.purba.domain.event.service.EventTypeServiceImpl;
-import com.ivon.purba.domain.content.event.dto.*;
 import com.ivon.purba.domain.event.entity.Event;
 import com.ivon.purba.domain.event.entity.EventType;
 import com.ivon.purba.domain.content.service.ContentTypeServiceImpl;
-import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class EventController {
 
     @PostMapping("/event/upload")
     public ResponseEntity<EventPostResponse> uploadEvent(@RequestBody EventPostRequest request) {
-        ContentType contentType = contentTypeService.getContentType("event");
+        ContentType contentType = contentTypeService.getContentType(ContentTypeEnum.EVENT);
         EventType eventType = eventTypeService.getEventTypeByName(request.getEventTypeName());
         User user = userService.getUserById(request.getUserId());
 

@@ -1,5 +1,6 @@
 package com.ivon.purba.domain.event.service;
 
+import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.event.dto.EventPostRequest;
 import com.ivon.purba.domain.event.dto.EventUpdateRequest;
 import com.ivon.purba.domain.event.entity.Event;
@@ -7,7 +8,6 @@ import com.ivon.purba.domain.event.entity.EventType;
 import com.ivon.purba.domain.event.repository.EventRepository;
 import com.ivon.purba.exception.exceptions.AIAnalysisException;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
-import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.ai.service.AiServiceImpl;
 import com.ivon.purba.domain.user.entity.User;
 import jakarta.transaction.Transactional;

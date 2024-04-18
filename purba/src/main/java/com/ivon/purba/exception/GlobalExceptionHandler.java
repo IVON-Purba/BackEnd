@@ -69,12 +69,12 @@ public class GlobalExceptionHandler {
         String errorMessage = "입출력 오류가 발생했습니다.";
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
-//
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-//        String errorMessage = "잘못된 매개변수입니다.";
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-//    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+        String errorMessage = "잘못된 매개변수입니다.";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
 
     @ExceptionHandler(NoSuchAlgorithmException.class)
     public ResponseEntity<String> handleNoSuchAlgorithmException(NoSuchAlgorithmException e) {
