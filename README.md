@@ -22,9 +22,11 @@ Purba BackEnd is a back-end solution based on Spring Boot, which processes data 
 
 
 ## Architecture
-
+### Our Pick
 <img width="931" alt="image" src="https://github.com/IVON-Purba/BackEnd/assets/52391641/188b8a49-0c8e-434e-bb91-8b5582377397">
 
+### Second Option
+![image](https://github.com/IVON-Purba/BackEnd/assets/52391641/eda898f5-d1a1-4cc5-9742-2574eb6a3706)
 
 
 ### Version
