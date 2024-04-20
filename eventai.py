@@ -1,4 +1,5 @@
-/*DB에 있는 공지사항 데이터를 gpt와 연결하여 요약 후 json 반환*/
+//DB에 있는 공지사항 데이터를 gpt와 연결하여 요약 후 json 반환
+//openapi, mysql.connector, dotenv 모듈 설치 필요
 
 import openai
 import mysql.connector
