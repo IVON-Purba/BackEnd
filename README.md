@@ -1,3 +1,6 @@
+구현중) 이벤트 AI 분석 서비스
+파이썬 변형
+
 # Purba BackEnd
 Purba BackEnd is a back-end solution based on Spring Boot, which processes data through RestFul API. It utilizes MySQL and Redis for data storage, and security is enhanced by using JWT. The project is deployed on the cloud via AWS.
 
