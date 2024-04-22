@@ -1,5 +1,7 @@
 package com.ivon.purba.domain.comment.entity;
 
+import com.ivon.purba.config.baseEntity.BaseTimeEntity;
+import com.ivon.purba.config.jwt.baseEntity.BaseEntity;
 import com.ivon.purba.domain.comment.dto.CommentRequestDto;
 import com.ivon.purba.domain.content.entity.Content;
 import com.ivon.purba.domain.user.entity.User;
@@ -17,7 +19,7 @@ import java.util.Date;
 @Entity
 @Table(name = "comment")
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id", nullable = false, updatable = false, unique = true)
@@ -38,20 +40,6 @@ public class Comment {
     @JoinColumn(name = "parent_comment_id")
     private Comment parentId;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "comment_cre_date", nullable = false, updatable = false)
-    private Date creDate;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "content_upd_date", nullable = false)
-    private Date updDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "comment_del_date")
-    private Date delDate;
-
     public Comment(Content content, User user, String commentData) {
         this.content = content;
         this.user = user;
@@ -68,12 +56,5 @@ public class Comment {
     public void patch(CommentRequestDto requestDto) {
         this.data = requestDto.getCommentData();
     }
-
-
-    @PreRemove
-    private void preRemove() {
-        this.delDate = new Date();
-    }
-
 
 }
