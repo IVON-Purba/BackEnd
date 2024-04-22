@@ -1,6 +1,7 @@
 package com.ivon.purba.config.jwt.filter;
 
 import com.ivon.purba.config.jwt.utils.JwtUtil;
+import com.ivon.purba.domain.refreshToken.service.AuthenticationService;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.user.service.interfaces.UserService;
 import com.ivon.purba.redis.utils.RedisUtil;
@@ -26,7 +27,7 @@ import java.util.List;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+    private final String secretKey;
     private final RedisUtil redisUtil;
 
     @Override
@@ -45,7 +46,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         String token = authorizationHeader.substring(7);
-        Date tokenExpiration = jwtUtil.getExpiration(token);
+        Date tokenExpiration = AuthenticationService.getExpiration(token, secretKey);
         String isLogout = redisUtil.getData(token);
 
         if (tokenExpiration.before(new Date()) || !ObjectUtils.isEmpty(isLogout)) {
@@ -53,7 +54,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        String phoneNumber = jwtUtil.getLoginPhoneNumber(token);
+        String phoneNumber = AuthenticationService.getLoginPhoneNumber(token, secretKey);
         User loginUser = userService.getUserByPhoneNumber(phoneNumber);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 loginUser.getId(), null, List.of(new SimpleGrantedAuthority(loginUser.getPhoneNumber())));

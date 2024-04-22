@@ -17,7 +17,7 @@ public class JwtUtil {
     private static final long ACCESS_TOKEN_VALIDITY = 300000;  // 5 minutes
     private static final long REFRESH_TOKEN_VALIDITY = 1800000; // 30 minutes
 
-    public JwtToken generateToken(String phoneNumber) {
+    public static JwtToken generateToken(String phoneNumber) {
         String accessToken = generateAccessToken(phoneNumber);
         String refreshToken = generateRefreshToken();
 
@@ -28,7 +28,7 @@ public class JwtUtil {
                 .build();
     }
 
-    public String generateAccessToken(String phoneNumber) {
+    public static String generateAccessToken(String phoneNumber) {
         Claims claims = Jwts.claims();
         claims.put("phoneNumber", phoneNumber);
         return Jwts.builder()
@@ -39,7 +39,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    private String generateRefreshToken() {
+    private static String generateRefreshToken() {
         return Jwts.builder()
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALIDITY * 3))

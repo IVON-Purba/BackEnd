@@ -1,5 +1,6 @@
 package com.ivon.purba.domain.user.entity;
 
+import com.ivon.purba.config.baseEntity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, updatable = false, unique = true)
@@ -24,29 +25,5 @@ public class User {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    private Integer location = 0;
-
-    @Column(name = "verification_code", unique = true)
-    private String verificationCode;
-
-    @Column(name = "conde_cre_time", unique = true)
-    private LocalDateTime codeCreTime;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
-    private Date creDate;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date updDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date delDate;
-
-    @PreRemove
-    private void preRemove() {
-        this.delDate = new Date();
-    }
+    private Integer location;
 }
