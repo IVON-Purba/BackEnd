@@ -1,23 +1,17 @@
 package com.ivon.purba.domain.content.entity;
 
 import com.ivon.purba.config.baseEntity.BaseTimeEntity;
-import com.ivon.purba.domain.event.entity.Event;
-import com.ivon.purba.domain.event.entity.EventType;
 import com.ivon.purba.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.util.Date;
 
 @Getter
-@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "content")
+@NoArgsConstructor
 public class Content extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,130 +23,87 @@ public class Content extends BaseTimeEntity {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "content_type", nullable = false, updatable = false)
+    @JoinColumn(name = "content_type_id", nullable = false, updatable = false)
     private ContentType contentType;
 
-    @Column(name = "easy_delete")
+    @Column(name = "easy_delete", nullable = false)
     @ColumnDefault("false")
     private Boolean easyDelete;
 
-    //Photo & Event attributes & some attributes for AI Analyst
+    @Column(name = "title", nullable = true, length = 255)
     private String title;
 
+    @Column(name = "location", nullable = true, length = 255)
     private String location;
 
-    @Column(name = "content_data", length = 10000)
+    @Column(name = "content_data", nullable = true, length = 10000)
     private String data;
 
-    @Column(name = "start_date")
-    private Date startDate;
+    @Column(name = "start_date", nullable = true)
+    private String startDate;
 
-    @Column(name = "end_date")
-    private Date endDate;
+    @Column(name = "end_date", nullable = true)
+    private String endDate;
 
-    @Column(length = 1000)
+    @Column(name = "summary", nullable = true, length = 1000)
     private String summary;
 
+    @Column(name = "charge", nullable = true)
     private Integer charge;
 
-    @Column(name = "bank_account")
+    @Column(name = "bank_account", nullable = true, length = 255)
     private String bankAccount;
 
-    public static class Builder {
-        private ContentType contentType;
-        private EventType eventType;
-        private User user;
-        private String location;
-        private String title;
-        private String data;
-        private String photoUrl;
-        private Date startDate;
-        private Date endDate;
-        private Integer charge;
-        private String bankAccount;
-        private boolean easyDelete;
-        private String summary;
+    public Content(User user, ContentType contentType) {
+        this.user = user;
+        this.contentType = contentType;
+    }
 
-        public Builder contentType(ContentType contentType) {
-            this.contentType = contentType;
-            return this;
-        }
-
-        public Builder eventType(EventType eventType) {
-            this.eventType = eventType;
-            return this;
-        }
-
-        public Builder user(User user) {
+    protected void updateFields(User user, String title, String location, String data, String startDate, String endDate, Integer charge,
+                                String bankAccount, String summary) {
+        if (user != null) {
             this.user = user;
-            return this;
         }
-
-        public Builder location(String location) {
-            this.location = location;
-            return this;
-        }
-
-        public Builder title(String title) {
+        if (title != null) {
             this.title = title;
-            return this;
         }
-
-        public Builder data(String data) {
+        if (location != null) {
+            this.title = location;
+        }
+        if (data != null) {
             this.data = data;
-            return this;
         }
-
-        public Builder photoUrl(String photoUrl) {
-            this.photoUrl = photoUrl;
-            return this;
-        }
-
-        public Builder startDate(Date startDate) {
+        if (startDate != null) {
             this.startDate = startDate;
-            return this;
         }
-
-        public Builder endDate(Date endDate) {
+        if (endDate != null) {
             this.endDate = endDate;
-            return this;
         }
-
-        public Builder charge(Integer charge) {
+        if (charge != null) {
             this.charge = charge;
-            return this;
         }
-
-        public Builder bankAccount(String bankAccount) {
+        if (bankAccount != null) {
             this.bankAccount = bankAccount;
-            return this;
         }
-
-        public Builder easyDelete(boolean easyDelete) {
-            this.easyDelete = easyDelete;
-            return this;
-        }
-
-        public Builder summary(String summary) {
+        if (summary != null) {
             this.summary = summary;
-            return this;
         }
+    }
 
-        public Event build() {
-            Event event = new Event();
-            event.setContentType(this.contentType);
-            event.setEventType(this.eventType);
-            event.setUser(this.user);
-            event.setTitle(this.title);
-            event.setData(this.data);
-            event.setPhotoUrl(this.photoUrl);
-            event.setStartDate(this.startDate);
-            event.setEndDate(this.endDate);
-            event.setCharge(this.charge);
-            event.setBankAccount(this.bankAccount);
-            event.setEasyDelete(this.easyDelete);
-            event.setSummary(this.summary);
-            return event;
-        }
+    public void updateEasyDelete(Boolean flag) {
+        this.easyDelete = flag;
+    }
+
+    protected void createContent(User user, ContentType contentType, String location, String title, String data, String startDate, String endDate, Integer charge, String backAccount, String summary) {
+        this.user = user;
+        this.contentType = contentType;
+        this.location = location;
+        this.title = title;
+        this.data = data;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.charge = charge;
+        this.bankAccount = backAccount;
+        this.summary = summary;
     }
 }

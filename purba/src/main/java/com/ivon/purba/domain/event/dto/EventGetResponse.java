@@ -5,17 +5,18 @@ import lombok.Getter;
 
 @Getter
 public class EventGetResponse {
-    private Long userId;
-    private String eventTypeName;
-    private String location;
-    private String title;
-    private String data;
-    private String photoUrl;
-    private String startDate;
-    private String endDate;
-    private Integer charge;
-    private String backAccount;
-    private String summary;
+    private final Long userId;
+    private final String eventTypeName;
+    private final String location;
+    private final String title;
+    private final String data;
+    private final String photoUrl;
+    private final String startDate;
+    private final String endDate;
+    private final Integer charge;
+    private final String backAccount;
+    private final String summary;
+
     public EventGetResponse(Event event){
         this.userId = event.getId();
         this.eventTypeName = event.getEventType().getName();

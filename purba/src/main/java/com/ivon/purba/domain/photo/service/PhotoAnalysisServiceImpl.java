@@ -1,7 +1,7 @@
 package com.ivon.purba.domain.photo.service;
 
 import com.ivon.purba.domain.ai.dto.PhotoAnalysis;
-import com.ivon.purba.domain.ai.service.AiService;
+import com.ivon.purba.domain.ai.service.interfaces.AiService;
 import com.ivon.purba.domain.photo.dto.PhotoAnalysisRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -3,16 +3,11 @@ package com.ivon.purba.domain.user.entity;
 import com.ivon.purba.config.baseEntity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
-@Getter
-@Setter
 @Entity
+@Getter
+@NoArgsConstructor
 @Table(name = "user")
 public class User extends BaseTimeEntity {
     @Id
@@ -26,4 +21,21 @@ public class User extends BaseTimeEntity {
     private String phoneNumber;
 
     private Integer location;
+
+    public User(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void updateLocation(Integer location) {
+        this.location = location;
+    }
 }

@@ -1,7 +1,6 @@
 package com.ivon.purba.config.security;
 
 import com.ivon.purba.config.jwt.filter.JwtTokenFilter;
-import com.ivon.purba.domain.refreshToken.service.AuthenticationService;
 import com.ivon.purba.domain.user.service.interfaces.UserService;
 import com.ivon.purba.redis.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;

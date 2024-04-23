@@ -3,7 +3,7 @@ package com.ivon.purba.domain.photo.service;
 import com.ivon.purba.domain.ai.file.FileService;
 import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.content.entity.ContentTypeEnum;
-import com.ivon.purba.domain.content.service.ContentTypeService;
+import com.ivon.purba.domain.content.service.interfaces.ContentTypeService;
 import com.ivon.purba.domain.photo.dto.PhotoUploadRequest;
 import com.ivon.purba.domain.photo.dto.PhotoUploadResponse;
 import com.ivon.purba.domain.photo.entity.Photo;
@@ -58,10 +58,6 @@ public class PhotoUploadServiceImpl implements PhotoUploadService {
             throw new UserNotFoundException("Non-existent user ID: " + userId);
         }
 
-        Photo photo = new Photo();
-        photo.setUser(user);
-        photo.setUrl(photoUrl);
-        photo.setContentType(contentType);
-        return photo;
+        return new Photo(user, contentType, photoUrl);
     }
 }

@@ -1,9 +1,7 @@
 package com.ivon.purba.domain.ai.file;
 
-import com.ivon.purba.exception.exceptions.InvalidFileNameException;
 import com.ivon.purba.exception.exceptions.FileStorageException;
-import lombok.Getter;
-import lombok.Setter;
+import com.ivon.purba.exception.exceptions.InvalidFileNameException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

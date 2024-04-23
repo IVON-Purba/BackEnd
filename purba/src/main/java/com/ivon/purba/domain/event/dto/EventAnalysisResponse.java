@@ -6,13 +6,13 @@ import java.util.Date;
 
 @Getter
 public class EventAnalysisResponse {
-    private String title;
-    private String summary;
-    private String location;
-    private String bankAccount;
-    private Integer charge;
-    private Date startDate;
-    private Date endDate;
+    private final String title;
+    private final String summary;
+    private final String location;
+    private final String bankAccount;
+    private final Integer charge;
+    private final Date startDate;
+    private final Date endDate;
 
     public EventAnalysisResponse(String title, String summary, String location, Date startDate, Date endDate, Integer charge, String bankAccount) {
         this.title = title;
