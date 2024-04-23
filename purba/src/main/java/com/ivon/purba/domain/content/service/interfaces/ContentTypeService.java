@@ -1,4 +1,4 @@
-package com.ivon.purba.domain.content.service;
+package com.ivon.purba.domain.content.service.interfaces;
 
 
 import com.ivon.purba.domain.content.entity.ContentType;

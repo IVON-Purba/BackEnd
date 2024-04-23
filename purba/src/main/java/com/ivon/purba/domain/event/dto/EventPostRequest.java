@@ -1,12 +1,8 @@
 package com.ivon.purba.domain.event.dto;
 
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
-@Setter
 public class EventPostRequest {
     private Long userId;
     private String eventTypeName;
@@ -14,8 +10,8 @@ public class EventPostRequest {
     private String title;
     private String data;
     private String photoUrl;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private Integer charge;
     private String backAccount;
     private String summary;

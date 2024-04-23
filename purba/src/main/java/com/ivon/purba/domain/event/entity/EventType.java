@@ -2,10 +2,8 @@ package com.ivon.purba.domain.event.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "event_type")
 public class EventType {

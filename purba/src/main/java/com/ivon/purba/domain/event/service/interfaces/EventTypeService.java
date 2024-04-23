@@ -1,4 +1,4 @@
-package com.ivon.purba.domain.event.service;
+package com.ivon.purba.domain.event.service.interfaces;
 
 
 import com.ivon.purba.domain.event.entity.EventType;
