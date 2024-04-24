@@ -1,6 +1,5 @@
 package com.ivon.purba.config.jwt.filter;
 
-import com.ivon.purba.config.jwt.utils.JwtUtil;
 import com.ivon.purba.domain.refreshToken.service.AuthenticationService;
 import com.ivon.purba.domain.user.entity.User;
 import com.ivon.purba.domain.user.service.interfaces.UserService;
@@ -10,7 +9,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,7 +31,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
         String requestURI = request.getRequestURI();
         if (requestURI.equals("/user/signUp") || requestURI.equals("/sms/send") || requestURI.equals("/sms/verify")) {
             filterChain.doFilter(request, response);

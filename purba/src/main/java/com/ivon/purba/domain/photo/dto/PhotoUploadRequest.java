@@ -2,8 +2,6 @@ package com.ivon.purba.domain.photo.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter

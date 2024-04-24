@@ -3,6 +3,7 @@ package com.ivon.purba.domain.content.service;
 import com.ivon.purba.domain.content.entity.ContentType;
 import com.ivon.purba.domain.content.entity.ContentTypeEnum;
 import com.ivon.purba.domain.content.repository.ContentTypeRepository;
+import com.ivon.purba.domain.content.service.interfaces.ContentTypeService;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

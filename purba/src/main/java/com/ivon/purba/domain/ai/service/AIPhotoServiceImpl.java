@@ -3,6 +3,7 @@ package com.ivon.purba.domain.ai.service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ivon.purba.domain.ai.dto.PhotoAnalysis;
+import com.ivon.purba.domain.ai.service.interfaces.AIPhotoService;
 import com.ivon.purba.exception.exceptions.AIAnalysisException;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Service 
-public class AiServiceImpl implements AiService {
+public class AIPhotoServiceImpl implements AIPhotoService {
 
     @Override
     public PhotoAnalysis analyzePhoto(String photoPath) {

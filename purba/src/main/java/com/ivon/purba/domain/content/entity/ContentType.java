@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "content_type")
 public class ContentType {

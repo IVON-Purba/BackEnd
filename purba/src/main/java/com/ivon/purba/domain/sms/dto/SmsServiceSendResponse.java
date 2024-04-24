@@ -1,8 +1,6 @@
 package com.ivon.purba.domain.sms.dto;
 
 import lombok.Getter;
-import lombok.Setter;
-import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 
 @Getter
 public class SmsServiceSendResponse {

@@ -2,6 +2,7 @@ package com.ivon.purba.domain.event.service;
 
 import com.ivon.purba.domain.event.entity.EventType;
 import com.ivon.purba.domain.event.repository.EventTypeRepository;
+import com.ivon.purba.domain.event.service.interfaces.EventTypeService;
 import com.ivon.purba.exception.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

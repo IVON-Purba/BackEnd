@@ -1,7 +1,7 @@
 package com.ivon.purba.domain.photo.service;
 
 import com.ivon.purba.domain.ai.dto.PhotoAnalysis;
-import com.ivon.purba.domain.ai.service.AiService;
+import com.ivon.purba.domain.ai.service.interfaces.AIPhotoService;
 import com.ivon.purba.domain.photo.dto.PhotoAnalysisRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PhotoAnalysisServiceImpl implements com.ivon.purba.domain.photo.service.interfaces.PhotoAnalysisService {
 
-    private final AiService aiService;
+    private final AIPhotoService aiService;
 
     @Override
     public PhotoAnalysis analyzePhoto(PhotoAnalysisRequest request) {
