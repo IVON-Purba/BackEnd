@@ -94,7 +94,7 @@ public class Content extends BaseTimeEntity {
         this.easyDelete = flag;
     }
 
-    protected void createContent(User user, ContentType contentType, String location, String title, String data, String startDate, String endDate, Integer charge, String backAccount, String summary) {
+    public void createContent(User user, ContentType contentType, String location, String title, String data, String startDate, String endDate, Integer charge, String backAccount, String summary) {
         this.user = user;
         this.contentType = contentType;
         this.location = location;
