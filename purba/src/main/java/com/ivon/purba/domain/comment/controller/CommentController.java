@@ -27,16 +27,16 @@ public class CommentController {
     }
 
 
-//    // 댓글 달기
-//    @PostMapping("/{contentId}/comments")
-//    public ResponseEntity<CommentResponseDto> addComment(@RequestBody CommentRequestDto requestDto,
-//                                              @PathVariable Long contentId,
-//                                              @RequestAttribute("userId") Long userId){
-//        // 서비스에 위임 해버리기
-//        CommentResponseDto comment = commentService.createComment(requestDto, contentId, userId);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(comment);
-//    }
+    // 댓글 달기
+    @PostMapping("/{contentId}/comments")
+    public ResponseEntity<CommentResponseDto> addComment(@RequestBody CommentRequestDto requestDto,
+                                              @PathVariable Long contentId,
+                                              @RequestAttribute("userId") Long userId){
+        // 서비스에 위임 해버리기
+        CommentResponseDto comment = commentService.createComment(requestDto, contentId, userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(comment);
+    }
 
     // 댓글 수정
     @PutMapping("/comments/{commentId}")
